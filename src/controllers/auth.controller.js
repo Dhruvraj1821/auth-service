@@ -93,6 +93,10 @@ export const refreshAccessToken = async (req,res) => {
         return res.status(401).json({message:"Refresh token missing"});
     }
 
+    if(!process.env.JWT_REFRESH_SECRET){
+        return res.status(500).json({message:"Server configuration error"});
+    }
+
     try{
         const decoded = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
         const user = await User.findById(decoded.userId);

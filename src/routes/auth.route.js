@@ -12,7 +12,9 @@ router.post("/logout",logoutUser);
 router.get("/me", protect, (req, res) => {
   res.status(200).json({
     message: "Access granted",
-    userId: req.userId,
+    userId: req.user._id,
+    email: req.user.email,
+    role: req.user.role,
   });
 });
 
